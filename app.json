@@ -1,0 +1,7 @@
+app.json
+{
+  "name": "Spring MicroServices",
+  "description": "Spring Boot MicroServices",
+  "repository": "",
+  "keywords": ["Spring", "Boot", "Heroku"]
+}
