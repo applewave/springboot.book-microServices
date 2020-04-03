@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class EventDispatcher {
 
@@ -16,7 +17,7 @@ public class EventDispatcher {
 
     @Autowired
     EventDispatcher(final RabbitTemplate rabbitTemplate,
-                    @Value("${mulitplication.exchange}") final String multiplicationExchange,
+                    @Value("${multiplication.exchange}") final String multiplicationExchange,
                     @Value("${multiplication.solved.key") final String multiplicationSolvedRoutingKey ) {
 
         this.rabbitTemplate = rabbitTemplate;
