@@ -7,6 +7,8 @@ import org.springframework.util.Assert;
 import spring.boot.book.microservices.domain.Multiplication;
 import spring.boot.book.microservices.domain.MultiplicationResultAttempt;
 import spring.boot.book.microservices.domain.User;
+import spring.boot.book.microservices.event.EventDispatcher;
+import spring.boot.book.microservices.event.MultiplicationSolvedEvent;
 import spring.boot.book.microservices.repository.MultiplicationResultAttemptRepository;
 import spring.boot.book.microservices.repository.UserRepository;
 
@@ -20,16 +22,20 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 
     private MultiplicationResultAttemptRepository attemptRepository;
     private UserRepository userRepository;
+    private EventDispatcher eventDispatcher;
 
     @Autowired
     public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService,
                                      final MultiplicationResultAttemptRepository attemptRepository,
-                                     final UserRepository userRepository) {
+                                     final UserRepository userRepository,
+                                     final EventDispatcher eventDispatcher) {
 
         this.randomGeneratorService = randomGeneratorService;
 
         this.attemptRepository = attemptRepository;
         this.userRepository = userRepository;
+
+        this.eventDispatcher = eventDispatcher;
     }
 
     @Override
@@ -58,6 +64,12 @@ public class MultiplicationServiceImpl implements MultiplicationService {
                 isCorrect);
 
         attemptRepository.save(checkedAttempt);
+
+        eventDispatcher.send(new MultiplicationSolvedEvent(
+                checkedAttempt.getId(),
+                checkedAttempt.getUser().getId(),
+                checkedAttempt.isCorrect())
+        );
 
         return isCorrect;
     }
