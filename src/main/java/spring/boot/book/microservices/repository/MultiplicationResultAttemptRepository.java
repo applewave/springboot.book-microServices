@@ -5,7 +5,8 @@ import spring.boot.book.microservices.domain.MultiplicationResultAttempt;
 
 import java.util.List;
 
-public interface MultiplicationResultAttemptRepository extends CrudRepository<MultiplicationResultAttempt, Long> {
+public interface MultiplicationResultAttemptRepository
+        extends CrudRepository<MultiplicationResultAttempt, Long> {
 
     List<MultiplicationResultAttempt> findTop5ByUserAliasOrderByIdDesc(String userAlias);
 }

@@ -1,5 +1,4 @@
 package spring.boot.book.microservices.domain;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +6,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+/**
+ * {@link User}가 {@link Multiplication}을 계산한 답안을 정의한 클래스
+ */
 @RequiredArgsConstructor
 @Getter
 @ToString
@@ -25,16 +27,16 @@ public final class MultiplicationResultAttempt {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "MULTIPLICATION_ID")
     private final Multiplication multiplication;
-
     private final int resultAttempt;
 
     private final boolean correct;
 
-    // JSON 역직렬화를 위한 빈 생성자
+    // JSON/JPA 를 위한 빈 생성자
     MultiplicationResultAttempt() {
         user = null;
         multiplication = null;
         resultAttempt = -1;
         correct = false;
     }
+
 }

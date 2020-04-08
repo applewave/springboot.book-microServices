@@ -1,9 +1,5 @@
 package spring.boot.book.microservices.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import spring.boot.book.microservices.domain.Multiplication;
 import spring.boot.book.microservices.domain.MultiplicationResultAttempt;
 import spring.boot.book.microservices.domain.User;
@@ -12,6 +8,11 @@ import spring.boot.book.microservices.event.MultiplicationSolvedEvent;
 import spring.boot.book.microservices.repository.MultiplicationResultAttemptRepository;
 import spring.boot.book.microservices.repository.UserRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,7 +76,15 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     }
 
     @Override
-    public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
+    public List<MultiplicationResultAttempt> getStatsForUser(final String userAlias) {
+
         return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
+    }
+
+    @Override
+    public MultiplicationResultAttempt getResultById(final Long resultId) {
+
+        // findOne(resultId)
+        return attemptRepository.findById(resultId).orElse(null);
     }
 }
