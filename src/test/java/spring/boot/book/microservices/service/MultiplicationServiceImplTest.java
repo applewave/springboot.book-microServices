@@ -38,7 +38,9 @@ public class MultiplicationServiceImplTest {
     @Before
     public void setUP() {
         MockitoAnnotations.initMocks(this);
-        multiplicationServiceImpl = new MultiplicationServiceImpl(randomGeneratorService, attemptRepository, userRepository, eventDispatcher);
+        multiplicationServiceImpl = new MultiplicationServiceImpl(randomGeneratorService, attemptRepository, userRepository
+                , eventDispatcher
+        );
     }
 
     @Test
@@ -52,7 +54,7 @@ public class MultiplicationServiceImplTest {
         // assert
         assertThat(multiplication.getFactorA()).isEqualTo(50);
         assertThat(multiplication.getFactorB()).isEqualTo(30);
-//        assertThat(multiplication.getResult()).isEqualTo(1500);
+        /*assertThat(multiplication.getResult()).isEqualTo(1500);*/
     }
 
     @Test
@@ -105,4 +107,5 @@ public class MultiplicationServiceImplTest {
         // then
         assertThat(latestAttemptsResult).isEqualTo(latestAttempts);
     }
+
 }

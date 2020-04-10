@@ -1,5 +1,6 @@
 package spring.boot.book.microservices.service;
 
+import lombok.extern.slf4j.Slf4j;
 import spring.boot.book.microservices.domain.Multiplication;
 import spring.boot.book.microservices.domain.MultiplicationResultAttempt;
 import spring.boot.book.microservices.domain.User;
@@ -16,6 +17,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class MultiplicationServiceImpl implements MultiplicationService {
 
@@ -28,8 +30,9 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     @Autowired
     public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService,
                                      final MultiplicationResultAttemptRepository attemptRepository,
-                                     final UserRepository userRepository,
-                                     final EventDispatcher eventDispatcher) {
+                                     final UserRepository userRepository
+                                   , final EventDispatcher eventDispatcher
+    ) {
 
         this.randomGeneratorService = randomGeneratorService;
 
@@ -64,7 +67,10 @@ public class MultiplicationServiceImpl implements MultiplicationService {
                 attempt.getResultAttempt(),
                 isCorrect);
 
+        log.info("- attempt Repository ");
         attemptRepository.save(checkedAttempt);
+
+        log.info("- attempt Repository end");
 
         eventDispatcher.send(new MultiplicationSolvedEvent(
                 checkedAttempt.getId(),
