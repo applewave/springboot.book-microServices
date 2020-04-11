@@ -69,7 +69,6 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 
         log.info("- attempt Repository ");
         attemptRepository.save(checkedAttempt);
-
         log.info("- attempt Repository end");
 
         eventDispatcher.send(new MultiplicationSolvedEvent(

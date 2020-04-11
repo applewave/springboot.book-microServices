@@ -12,15 +12,15 @@ public class EventDispatcher {
     private RabbitTemplate rabbitTemplate;
 
     private String multiplicationExchange;
-
     private String multiplicationSolvedRoutingKey;
 
     @Autowired
     EventDispatcher(final RabbitTemplate rabbitTemplate,
                     @Value("${multiplication.exchange}") final String multiplicationExchange,
-                    @Value("${multiplication.solved.key") final String multiplicationSolvedRoutingKey ) {
+                    @Value("${multiplication.solved.key}") final String multiplicationSolvedRoutingKey ) {
 
         this.rabbitTemplate = rabbitTemplate;
+
         this.multiplicationExchange = multiplicationExchange;
         this.multiplicationSolvedRoutingKey = multiplicationSolvedRoutingKey;
     }
