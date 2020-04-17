@@ -55,6 +55,8 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     @Override
     public boolean checkAttempt(final MultiplicationResultAttempt attempt) {
 
+        log.info("- checkAttempt");
+
         Optional<User> user = userRepository.findByAlias(attempt.getUser().getAlias());
 
         Assert.isTrue(!attempt.isCorrect(), "채점한 상태로 보낼 수 없습니다!");
